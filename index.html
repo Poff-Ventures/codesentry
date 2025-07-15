@@ -105,16 +105,48 @@ function calculateTotal(items) {
         <!-- Footer -->
         <footer class="text-center mt-12 text-gray-500">
             <p>&copy; 2025 CodeSentry. AI-powered code review for better software quality.</p>
-            <div class="mt-2 space-x-4">
-                <span class="text-sm">Want to integrate CodeSentry into your workflow? </span>
-                <a href="pricing.html" class="text-blue-600 hover:underline">View Pricing</a>
-                <span class="text-gray-400">|</span>
-                <a href="feedback.html" class="text-blue-600 hover:underline">Give Feedback</a>
+            <div class="mt-4">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                    <h3 class="font-medium text-blue-900 mb-2">Ready to improve your code quality?</h3>
+                    <form name="demo-signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/success.html" class="flex max-w-md mx-auto">
+                        <input type="hidden" name="form-name" value="demo-signup">
+                        <input type="hidden" name="bot-field">
+                        <input type="hidden" name="source" value="demo_page">
+                        <input type="email" name="email" placeholder="Enter your email for early access" required
+                               class="flex-1 px-3 py-2 border border-blue-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition duration-200">
+                            Get Access
+                        </button>
+                    </form>
+                </div>
+                <div class="text-center space-x-4">
+                    <a href="pricing.html" class="text-blue-600 hover:underline">View Pricing</a>
+                    <span class="text-gray-400">|</span>
+                    <a href="feedback.html" class="text-blue-600 hover:underline">Give Feedback</a>
+                </div>
             </div>
         </footer>
     </div>
 
     <script src="analytics.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Track demo form submission
+        document.querySelector('form[name="demo-signup"]').addEventListener('submit', function(e) {
+            const email = this.email.value;
+            
+            // Track email signup
+            if (window.codeSentryAnalytics) {
+                window.codeSentryAnalytics.trackEvent('email_signup', {
+                    email: email,
+                    source: 'demo_page'
+                });
+            }
+            
+            // Store locally for backup
+            localStorage.setItem('userEmail', email);
+            console.log('Email captured from demo:', email);
+        });
+    </script>
 </body>
 </html>

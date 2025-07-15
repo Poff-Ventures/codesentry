@@ -157,20 +157,25 @@
                 <h3 class="text-xl font-bold mb-4">Start Your Pro Trial</h3>
                 <p class="text-gray-600 mb-6">Enter your details to start your 14-day free trial. No credit card required.</p>
                 
-                <form id="trialForm">
+                <form name="trial-signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/success.html">
+                    <input type="hidden" name="form-name" value="trial-signup">
+                    <input type="hidden" name="bot-field">
+                    <input type="hidden" name="source" value="pricing_page">
+                    <input type="hidden" name="plan" value="pro">
+                    
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                        <input type="text" id="fullName" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <input type="text" name="fullName" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
                     
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                        <input type="email" id="emailAddress" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <input type="email" name="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
                     
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Company Size</label>
-                        <select id="companySize" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        <select name="companySize" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                             <option value="">Select size</option>
                             <option value="1-5">1-5 developers</option>
                             <option value="6-20">6-20 developers</option>
@@ -182,7 +187,7 @@
                     
                     <div class="mb-6">
                         <label class="flex items-center">
-                            <input type="checkbox" id="marketingOptIn" class="mr-2">
+                            <input type="checkbox" name="marketingOptIn" class="mr-2">
                             <span class="text-sm text-gray-600">I'd like to receive product updates and tips</span>
                         </label>
                     </div>
@@ -269,19 +274,17 @@
         });
 
         // Handle trial form submission
-        document.getElementById('trialForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
+        document.querySelector('form[name="trial-signup"]').addEventListener('submit', function(e) {
             const formData = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('emailAddress').value,
-                companySize: document.getElementById('companySize').value,
-                marketingOptIn: document.getElementById('marketingOptIn').checked,
+                fullName: this.fullName.value,
+                email: this.email.value,
+                companySize: this.companySize.value,
+                marketingOptIn: this.marketingOptIn.checked,
                 plan: 'pro',
                 trialStart: new Date().toISOString()
             };
 
-            // Store trial signup
+            // Store trial signup locally for backup
             const trials = JSON.parse(localStorage.getItem('codesentry_trials') || '[]');
             trials.push(formData);
             localStorage.setItem('codesentry_trials', JSON.stringify(trials));
@@ -296,13 +299,6 @@
             }
 
             console.log('Trial signup:', formData);
-
-            // Show success message
-            alert('Welcome to CodeSentry Pro! Your 14-day free trial has started. Check your email for next steps.');
-            
-            // Close modal and redirect
-            document.getElementById('paymentModal').classList.add('hidden');
-            window.location.href = 'index.html';
         });
 
         // Track page view

@@ -5,6 +5,10 @@
 [build.environment]
   NODE_VERSION = "20.6.0"
 
+# Form settings
+[context.production.forms]
+  success_page = "/success.html"
+
 # Redirect rules for single page application
 [[redirects]]
   from = "/success"

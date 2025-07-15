@@ -319,7 +319,7 @@
             <p class="text-lg text-blue-100 mb-8">Join 500+ developers already using CodeSentry to improve their code quality</p>
             
             <div class="max-w-md mx-auto">
-                <form name="email-signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+                <form name="email-signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/success">
                     <input type="hidden" name="form-name" value="email-signup">
                     <input type="hidden" name="bot-field">
                     <input type="hidden" name="source" value="landing_page">
@@ -363,14 +363,6 @@
             // Store locally for backup
             localStorage.setItem('userEmail', email);
             console.log('Email captured:', email);
-            
-            // Add success redirect after form submission
-            const form = this;
-            setTimeout(function() {
-                if (window.location.pathname !== '/success.html') {
-                    window.location.href = '/success.html';
-                }
-            }, 1000);
         });
 
         // CTA button handling

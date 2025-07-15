@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - CodeSentry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Choose Your Plan</h1>
+            <p class="text-lg text-gray-600">Start free, upgrade when you need more</p>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <!-- Free Plan -->
+            <div class="bg-white rounded-lg shadow-lg p-8 border-2 border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Free</h3>
+                <div class="mb-6">
+                    <span class="text-4xl font-bold text-gray-800">$0</span>
+                    <span class="text-gray-600">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        50 code reviews per month
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Basic AI analysis
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        5 supported languages
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Email support
+                    </li>
+                </ul>
+                <button class="w-full bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition duration-200">
+                    Get Started Free
+                </button>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="bg-white rounded-lg shadow-lg p-8 border-2 border-blue-500 relative">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm">
+                    Most Popular
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Pro</h3>
+                <div class="mb-6">
+                    <span class="text-4xl font-bold text-gray-800">$25</span>
+                    <span class="text-gray-600">/user/month</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Unlimited code reviews
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Advanced AI analysis
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        15+ supported languages
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        GitHub integration
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Team collaboration
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Priority support
+                    </li>
+                </ul>
+                <button class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-200 pro-signup">
+                    Start 14-Day Free Trial
+                </button>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="bg-white rounded-lg shadow-lg p-8 border-2 border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Enterprise</h3>
+                <div class="mb-6">
+                    <span class="text-4xl font-bold text-gray-800">Custom</span>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Everything in Pro
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Custom integrations
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        On-premise deployment
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        SLA guarantees
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Dedicated support
+                    </li>
+                </ul>
+                <button class="w-full bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition duration-200 enterprise-contact">
+                    Contact Sales
+                </button>
+            </div>
+        </div>
+
+        <!-- Payment Modal -->
+        <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+                <h3 class="text-xl font-bold mb-4">Start Your Pro Trial</h3>
+                <p class="text-gray-600 mb-6">Enter your details to start your 14-day free trial. No credit card required.</p>
+                
+                <form id="trialForm">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="fullName" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="emailAddress" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Company Size</label>
+                        <select id="companySize" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select size</option>
+                            <option value="1-5">1-5 developers</option>
+                            <option value="6-20">6-20 developers</option>
+                            <option value="21-50">21-50 developers</option>
+                            <option value="51-100">51-100 developers</option>
+                            <option value="100+">100+ developers</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="marketingOptIn" class="mr-2">
+                            <span class="text-sm text-gray-600">I'd like to receive product updates and tips</span>
+                        </label>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button type="button" id="cancelTrial" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-md hover:bg-gray-400 transition duration-200">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-200">
+                            Start Free Trial
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="max-w-4xl mx-auto mb-8">
+            <h3 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h3>
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h4 class="font-semibold mb-2">How does the free trial work?</h4>
+                    <p class="text-gray-600">You get 14 days of full Pro access with no credit card required. Cancel anytime during the trial period.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h4 class="font-semibold mb-2">What programming languages are supported?</h4>
+                    <p class="text-gray-600">We support JavaScript, TypeScript, Python, Java, C#, Go, Rust, and many more. New languages are added regularly.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h4 class="font-semibold mb-2">How does CodeSentry handle AI-generated code?</h4>
+                    <p class="text-gray-600">Our AI is specifically trained to identify common issues in AI-generated code, including security vulnerabilities, performance problems, and maintainability issues.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h4 class="font-semibold mb-2">Can I cancel my subscription anytime?</h4>
+                    <p class="text-gray-600">Yes, you can cancel your subscription at any time. You'll continue to have access until the end of your current billing period.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to App -->
+        <div class="text-center">
+            <a href="index.html" class="text-blue-600 hover:underline">← Back to CodeSentry</a>
+        </div>
+    </div>
+
+    <script src="analytics.js"></script>
+    <script>
+        // Handle Pro plan signup
+        document.querySelectorAll('.pro-signup').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('paymentModal').classList.remove('hidden');
+                
+                // Track trial start interest
+                if (window.codeSentryAnalytics) {
+                    window.codeSentryAnalytics.trackEvent('trial_signup_started', {
+                        plan: 'pro',
+                        price: 25
+                    });
+                }
+            });
+        });
+
+        // Handle Enterprise contact
+        document.querySelectorAll('.enterprise-contact').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Track enterprise interest
+                if (window.codeSentryAnalytics) {
+                    window.codeSentryAnalytics.trackEvent('enterprise_contact_clicked', {
+                        plan: 'enterprise'
+                    });
+                }
+                
+                // In a real app, this would open a contact form or redirect to sales
+                alert('Thanks for your interest! Our sales team will contact you within 24 hours.');
+            });
+        });
+
+        // Handle modal close
+        document.getElementById('cancelTrial').addEventListener('click', function() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        });
+
+        // Handle trial form submission
+        document.getElementById('trialForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('emailAddress').value,
+                companySize: document.getElementById('companySize').value,
+                marketingOptIn: document.getElementById('marketingOptIn').checked,
+                plan: 'pro',
+                trialStart: new Date().toISOString()
+            };
+
+            // Store trial signup
+            const trials = JSON.parse(localStorage.getItem('codesentry_trials') || '[]');
+            trials.push(formData);
+            localStorage.setItem('codesentry_trials', JSON.stringify(trials));
+
+            // Track trial signup
+            if (window.codeSentryAnalytics) {
+                window.codeSentryAnalytics.trackEvent('trial_signup_completed', {
+                    plan: 'pro',
+                    company_size: formData.companySize,
+                    marketing_opt_in: formData.marketingOptIn
+                });
+            }
+
+            console.log('Trial signup:', formData);
+
+            // Show success message
+            alert('Welcome to CodeSentry Pro! Your 14-day free trial has started. Check your email for next steps.');
+            
+            // Close modal and redirect
+            document.getElementById('paymentModal').classList.add('hidden');
+            window.location.href = 'index.html';
+        });
+
+        // Track page view
+        if (window.codeSentryAnalytics) {
+            window.codeSentryAnalytics.trackEvent('pricing_page_view', {
+                page: 'pricing'
+            });
+        }
+    </script>
+</body>
+</html>

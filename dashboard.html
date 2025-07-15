@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CodeSentry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">CodeSentry Analytics Dashboard</h1>
+            <p class="text-gray-600">Monitor user engagement and feedback</p>
+        </div>
+
+        <!-- Metrics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">Total Sessions</h3>
+                <p id="totalSessions" class="text-2xl font-bold text-gray-900">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">Code Analyses</h3>
+                <p id="codeAnalyses" class="text-2xl font-bold text-blue-600">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">Email Signups</h3>
+                <p id="emailSignups" class="text-2xl font-bold text-green-600">0</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">Conversion Rate</h3>
+                <p id="conversionRate" class="text-2xl font-bold text-purple-600">0%</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Popular Languages -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4">Popular Languages</h3>
+                <canvas id="languageChart" width="400" height="200"></canvas>
+            </div>
+
+            <!-- User Activity -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4">User Events</h3>
+                <canvas id="eventChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h3 class="text-lg font-semibold mb-4">User Feedback</h3>
+            <div id="feedbackList">
+                <!-- Feedback will be populated here -->
+            </div>
+        </div>
+
+        <!-- Recent Events -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+            <div id="recentEvents" class="space-y-2">
+                <!-- Events will be populated here -->
+            </div>
+        </div>
+
+        <!-- Back to App -->
+        <div class="text-center mt-8">
+            <a href="index.html" class="text-blue-600 hover:underline">← Back to CodeSentry</a>
+        </div>
+    </div>
+
+    <script>
+        class Dashboard {
+            constructor() {
+                this.loadAnalytics();
+                this.loadFeedback();
+                this.setupCharts();
+            }
+
+            loadAnalytics() {
+                const sentAnalytics = JSON.parse(localStorage.getItem('codesentry_sent_analytics') || '[]');
+                const currentSession = JSON.parse(localStorage.getItem('codesentry_analytics') || '{}');
+                
+                let totalSessions = sentAnalytics.length;
+                let totalEvents = 0;
+                let codeAnalysisCount = 0;
+                let emailSignups = 0;
+                let languages = {};
+                let events = {};
+
+                // Process sent analytics
+                sentAnalytics.forEach(session => {
+                    totalEvents += session.events.length;
+                    
+                    session.events.forEach(event => {
+                        // Count events by type
+                        events[event.event_name] = (events[event.event_name] || 0) + 1;
+                        
+                        if (event.event_name === 'code_analysis_start') {
+                            codeAnalysisCount++;
+                            if (event.language) {
+                                languages[event.language] = (languages[event.language] || 0) + 1;
+                            }
+                        }
+                        if (event.event_name === 'email_signup') {
+                            emailSignups++;
+                        }
+                    });
+                });
+
+                // Process current session
+                if (currentSession.events) {
+                    currentSession.events.forEach(event => {
+                        events[event.event_name] = (events[event.event_name] || 0) + 1;
+                        
+                        if (event.event_name === 'code_analysis_start') {
+                            codeAnalysisCount++;
+                            if (event.language) {
+                                languages[event.language] = (languages[event.language] || 0) + 1;
+                            }
+                        }
+                        if (event.event_name === 'email_signup') {
+                            emailSignups++;
+                        }
+                    });
+                }
+
+                const conversionRate = totalSessions > 0 ? (emailSignups / totalSessions * 100).toFixed(1) : 0;
+
+                // Update metrics
+                document.getElementById('totalSessions').textContent = totalSessions;
+                document.getElementById('codeAnalyses').textContent = codeAnalysisCount;
+                document.getElementById('emailSignups').textContent = emailSignups;
+                document.getElementById('conversionRate').textContent = conversionRate + '%';
+
+                // Store data for charts
+                this.languageData = languages;
+                this.eventData = events;
+                this.analyticsData = sentAnalytics;
+            }
+
+            loadFeedback() {
+                const feedback = JSON.parse(localStorage.getItem('codesentry_feedback') || '[]');
+                const feedbackList = document.getElementById('feedbackList');
+
+                if (feedback.length === 0) {
+                    feedbackList.innerHTML = '<p class="text-gray-500">No feedback yet</p>';
+                    return;
+                }
+
+                feedbackList.innerHTML = feedback.map(f => `
+                    <div class="border-b pb-4 mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-sm font-medium">Rating:</span>
+                                <div class="flex">
+                                    ${Array.from({length: 5}, (_, i) => 
+                                        `<span class="text-${i < f.rating ? 'yellow' : 'gray'}-400">★</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">${new Date(f.timestamp).toLocaleDateString()}</span>
+                        </div>
+                        ${f.experience ? `<p class="text-sm mb-2"><strong>Liked:</strong> ${f.experience}</p>` : ''}
+                        ${f.improvements ? `<p class="text-sm mb-2"><strong>Improvements:</strong> ${f.improvements}</p>` : ''}
+                        ${f.useCase ? `<p class="text-sm mb-2"><strong>Use Case:</strong> ${f.useCase}</p>` : ''}
+                        ${f.pricing ? `<p class="text-sm mb-2"><strong>Price Range:</strong> ${f.pricing}</p>` : ''}
+                        ${f.painPoints.length > 0 ? `<p class="text-sm"><strong>Pain Points:</strong> ${f.painPoints.join(', ')}</p>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            setupCharts() {
+                this.setupLanguageChart();
+                this.setupEventChart();
+                this.loadRecentEvents();
+            }
+
+            setupLanguageChart() {
+                const ctx = document.getElementById('languageChart').getContext('2d');
+                const languages = Object.entries(this.languageData).slice(0, 5);
+                
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: languages.map(([lang]) => lang),
+                        datasets: [{
+                            data: languages.map(([, count]) => count),
+                            backgroundColor: [
+                                '#3B82F6',
+                                '#10B981',
+                                '#F59E0B',
+                                '#EF4444',
+                                '#8B5CF6'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            setupEventChart() {
+                const ctx = document.getElementById('eventChart').getContext('2d');
+                const events = Object.entries(this.eventData);
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: events.map(([event]) => event.replace('_', ' ')),
+                        datasets: [{
+                            label: 'Count',
+                            data: events.map(([, count]) => count),
+                            backgroundColor: '#3B82F6'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            loadRecentEvents() {
+                const recentEvents = document.getElementById('recentEvents');
+                const allEvents = [];
+                
+                // Collect all events
+                this.analyticsData.forEach(session => {
+                    session.events.forEach(event => {
+                        allEvents.push(event);
+                    });
+                });
+
+                // Sort by timestamp
+                allEvents.sort((a, b) => b.timestamp - a.timestamp);
+
+                // Display recent 10 events
+                const recent = allEvents.slice(0, 10);
+                
+                if (recent.length === 0) {
+                    recentEvents.innerHTML = '<p class="text-gray-500">No recent activity</p>';
+                    return;
+                }
+
+                recentEvents.innerHTML = recent.map(event => `
+                    <div class="flex items-center justify-between py-2 border-b">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                            <span class="text-sm font-medium">${event.event_name.replace('_', ' ')}</span>
+                            ${event.language ? `<span class="text-xs bg-gray-100 px-2 py-1 rounded">${event.language}</span>` : ''}
+                        </div>
+                        <span class="text-xs text-gray-500">${new Date(event.timestamp).toLocaleString()}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            new Dashboard();
+        });
+    </script>
+</body>
+</html>

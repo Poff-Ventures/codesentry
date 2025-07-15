@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSentry - AI Code Review for Better Software Quality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="AI-powered code review tool that helps developers improve code quality, detect technical debt, and review AI-generated code.">
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">CodeSentry</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#demo" class="text-gray-600 hover:text-gray-900">Demo</a>
+                    <a href="pricing.html" class="text-gray-600 hover:text-gray-900">Pricing</a>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                AI-Powered Code Review<br>
+                <span class="text-blue-200">That Actually Works</span>
+            </h2>
+            <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                Stop shipping buggy code. CodeSentry uses advanced AI to review your code, detect technical debt, 
+                and provide actionable improvements. Perfect for teams using AI coding assistants.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button id="ctaButton" class="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-200">
+                    Try Free Demo
+                </button>
+                <button class="border border-white text-white px-8 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-600 transition duration-200">
+                    Watch Video
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">The Problem with AI-Generated Code</h3>
+                <p class="text-lg text-gray-600">Developers are 19% slower when using AI coding tools, despite expecting them to speed up development.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">AI Code Needs Review</h4>
+                    <p class="text-gray-600">AI-generated code often contains subtle bugs, security issues, and doesn't follow best practices.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Technical Debt Accumulates</h4>
+                    <p class="text-gray-600">Without proper review, technical debt builds up quickly, slowing down future development.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Manual Reviews Are Slow</h4>
+                    <p class="text-gray-600">Traditional code review processes are bottlenecks that slow down development velocity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">How CodeSentry Solves This</h3>
+                <p class="text-lg text-gray-600">Automated AI code review that catches issues before they become problems.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h4 class="text-2xl font-semibold mb-6">Instant AI Code Analysis</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Detects bugs and security vulnerabilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Identifies technical debt and code smells</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Provides actionable improvement suggestions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Specialized for reviewing AI-generated code</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-900 rounded-lg p-6 text-green-400 font-mono text-sm">
+                    <div class="mb-4">
+                        <span class="text-gray-400">// Before CodeSentry</span><br>
+                        <span class="text-red-400">var items = data.items;</span><br>
+                        <span class="text-red-400">for (var i = 0; i < items.length; i++) {</span><br>
+                        <span class="text-red-400">  total += items[i].price;</span><br>
+                        <span class="text-red-400">}</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-400">// After CodeSentry</span><br>
+                        <span class="text-green-400">const items = data?.items || [];</span><br>
+                        <span class="text-green-400">const total = items.reduce((sum, item) => </span><br>
+                        <span class="text-green-400">  sum + (item?.price || 0), 0);</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Try CodeSentry Now</h3>
+                <p class="text-lg text-gray-600">See how CodeSentry analyzes your code in real-time</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+                <div class="flex justify-center mb-6">
+                    <button id="demoButton" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200">
+                        Launch Interactive Demo
+                    </button>
+                </div>
+                <div class="text-center text-gray-600">
+                    <p>Or <a href="index.html" class="text-blue-600 hover:underline">try the full demo</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h3>
+                <p class="text-lg text-gray-600">Start free, upgrade when you need more</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Free Plan -->
+                <div class="bg-white rounded-lg shadow-sm border-2 border-gray-200 p-6">
+                    <h4 class="text-xl font-semibold mb-2">Free</h4>
+                    <p class="text-3xl font-bold mb-4">$0<span class="text-lg font-normal">/month</span></p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            50 reviews per month
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Basic code analysis
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Email support
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700">
+                        Get Started
+                    </button>
+                </div>
+                
+                <!-- Pro Plan -->
+                <div class="bg-white rounded-lg shadow-sm border-2 border-blue-500 p-6 relative">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white px-3 py-1 rounded-bl-lg rounded-tr-lg text-sm">
+                        Popular
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Pro</h4>
+                    <p class="text-3xl font-bold mb-4">$25<span class="text-lg font-normal">/user/month</span></p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Unlimited reviews
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Advanced AI analysis
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            GitHub integration
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Team collaboration
+                        </li>
+                    </ul>
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+                        Start Pro Trial
+                    </button>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="bg-white rounded-lg shadow-sm border-2 border-gray-200 p-6">
+                    <h4 class="text-xl font-semibold mb-2">Enterprise</h4>
+                    <p class="text-3xl font-bold mb-4">Custom</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Custom integrations
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            On-premise deployment
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Priority support
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            SLA guarantees
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Capture Section -->
+    <section class="py-16 bg-blue-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-3xl font-bold text-white mb-4">Get Early Access</h3>
+            <p class="text-lg text-blue-100 mb-8">Join 500+ developers already using CodeSentry to improve their code quality</p>
+            
+            <div class="max-w-md mx-auto">
+                <form id="emailForm" class="flex">
+                    <input type="email" id="emailInput" placeholder="Enter your email" 
+                           class="flex-1 px-4 py-3 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="bg-blue-800 text-white px-6 py-3 rounded-r-md hover:bg-blue-900 transition duration-200">
+                        Get Access
+                    </button>
+                </form>
+                <p class="text-sm text-blue-200 mt-2">No spam, unsubscribe anytime</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h4 class="text-2xl font-bold mb-2">CodeSentry</h4>
+                <p class="text-gray-400">&copy; 2025 CodeSentry. AI-powered code review for better software quality.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="analytics.js"></script>
+    <script>
+        // Email form handling
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            // Store email (in real app, send to backend)
+            console.log('Email captured:', email);
+            localStorage.setItem('userEmail', email);
+            
+            // Track email signup
+            if (window.codeSentryAnalytics) {
+                window.codeSentryAnalytics.trackEvent('email_signup', {
+                    email: email,
+                    source: 'landing_page'
+                });
+            }
+            
+            // Show success message
+            alert('Thanks for your interest! We\'ll be in touch soon.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // CTA button handling
+        document.getElementById('ctaButton').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+
+        // Demo button handling
+        document.getElementById('demoButton').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

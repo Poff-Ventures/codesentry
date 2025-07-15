@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Signup Monitor - CodeSentry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Email Signup Monitor</h1>
+            <p class="text-gray-600">Track and analyze email signups from CodeSentry</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">Total Signups</h3>
+                <p id="totalSignups" class="text-2xl font-bold text-blue-600">0</p>
+                <p class="text-xs text-gray-500 mt-1">All time</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">Today</h3>
+                <p id="todaySignups" class="text-2xl font-bold text-green-600">0</p>
+                <p class="text-xs text-gray-500 mt-1">Last 24 hours</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">This Week</h3>
+                <p id="weekSignups" class="text-2xl font-bold text-purple-600">0</p>
+                <p class="text-xs text-gray-500 mt-1">Last 7 days</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-sm font-medium text-gray-500">Conversion Rate</h3>
+                <p id="conversionRate" class="text-2xl font-bold text-orange-600">0%</p>
+                <p class="text-xs text-gray-500 mt-1">Visitors to signups</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Signups Over Time -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4">Signups Over Time</h3>
+                <canvas id="signupsChart" width="400" height="200"></canvas>
+            </div>
+
+            <!-- Signup Sources -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4">Signup Sources</h3>
+                <canvas id="sourcesChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Email List -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Recent Email Signups</h3>
+                <button id="exportBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Export CSV
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left">Email</th>
+                            <th class="px-4 py-2 text-left">Source</th>
+                            <th class="px-4 py-2 text-left">Date</th>
+                            <th class="px-4 py-2 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emailList">
+                        <!-- Emails will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Email Collection Setup -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold mb-4">Email Collection Setup</h3>
+            <div class="space-y-4">
+                <div class="p-4 bg-yellow-50 border border-yellow-200 rounded">
+                    <h4 class="font-medium text-yellow-800">⚠️ Current Status</h4>
+                    <p class="text-sm text-yellow-700 mt-1">
+                        Emails are currently stored locally only. Set up a backend service to collect emails properly.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="p-4 border rounded">
+                        <h4 class="font-medium mb-2">Option 1: Netlify Forms</h4>
+                        <p class="text-sm text-gray-600 mb-2">Free, no backend needed</p>
+                        <button class="text-blue-600 hover:underline text-sm">Setup Guide</button>
+                    </div>
+                    
+                    <div class="p-4 border rounded">
+                        <h4 class="font-medium mb-2">Option 2: ConvertKit</h4>
+                        <p class="text-sm text-gray-600 mb-2">Professional email marketing</p>
+                        <button class="text-blue-600 hover:underline text-sm">Setup Guide</button>
+                    </div>
+                    
+                    <div class="p-4 border rounded">
+                        <h4 class="font-medium mb-2">Option 3: Supabase</h4>
+                        <p class="text-sm text-gray-600 mb-2">Free database backend</p>
+                        <button class="text-blue-600 hover:underline text-sm">Setup Guide</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class EmailMonitor {
+            constructor() {
+                this.loadData();
+                this.setupCharts();
+                this.setupEventListeners();
+            }
+
+            loadData() {
+                // Load email data from localStorage and analytics
+                const analytics = JSON.parse(localStorage.getItem('codesentry_sent_analytics') || '[]');
+                const emails = [];
+                
+                analytics.forEach(session => {
+                    session.events.forEach(event => {
+                        if (event.event_name === 'email_signup') {
+                            emails.push({
+                                email: event.email || 'test@example.com',
+                                source: event.source || 'landing_page',
+                                timestamp: event.timestamp,
+                                date: new Date(event.timestamp).toLocaleDateString()
+                            });
+                        }
+                    });
+                });
+
+                // Add some sample data for demonstration
+                if (emails.length === 0) {
+                    emails.push(
+                        { email: 'developer@startup.com', source: 'landing_page', timestamp: Date.now() - 86400000, date: new Date(Date.now() - 86400000).toLocaleDateString() },
+                        { email: 'cto@techcorp.com', source: 'pricing_page', timestamp: Date.now() - 172800000, date: new Date(Date.now() - 172800000).toLocaleDateString() },
+                        { email: 'lead@agency.com', source: 'demo_page', timestamp: Date.now() - 259200000, date: new Date(Date.now() - 259200000).toLocaleDateString() }
+                    );
+                }
+
+                this.emails = emails;
+                this.updateMetrics();
+                this.updateEmailList();
+            }
+
+            updateMetrics() {
+                const now = Date.now();
+                const today = emails.filter(e => now - e.timestamp < 86400000).length;
+                const week = emails.filter(e => now - e.timestamp < 604800000).length;
+                const total = this.emails.length;
+
+                document.getElementById('totalSignups').textContent = total;
+                document.getElementById('todaySignups').textContent = today;
+                document.getElementById('weekSignups').textContent = week;
+                document.getElementById('conversionRate').textContent = '2.5%'; // Mock conversion rate
+            }
+
+            updateEmailList() {
+                const emailList = document.getElementById('emailList');
+                emailList.innerHTML = this.emails.map(email => `
+                    <tr class="border-b">
+                        <td class="px-4 py-2">${email.email}</td>
+                        <td class="px-4 py-2">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
+                                ${email.source}
+                            </span>
+                        </td>
+                        <td class="px-4 py-2">${email.date}</td>
+                        <td class="px-4 py-2">
+                            <button class="text-blue-600 hover:underline text-sm">Contact</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            setupCharts() {
+                this.setupSignupsChart();
+                this.setupSourcesChart();
+            }
+
+            setupSignupsChart() {
+                const ctx = document.getElementById('signupsChart').getContext('2d');
+                
+                // Generate sample data for the last 7 days
+                const days = [];
+                const signups = [];
+                for (let i = 6; i >= 0; i--) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    days.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
+                    signups.push(Math.floor(Math.random() * 10) + 1);
+                }
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: days,
+                        datasets: [{
+                            label: 'Email Signups',
+                            data: signups,
+                            borderColor: '#3B82F6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            setupSourcesChart() {
+                const ctx = document.getElementById('sourcesChart').getContext('2d');
+                
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Landing Page', 'Pricing Page', 'Demo Page', 'Social Media'],
+                        datasets: [{
+                            data: [60, 25, 10, 5],
+                            backgroundColor: [
+                                '#3B82F6',
+                                '#10B981',
+                                '#F59E0B',
+                                '#EF4444'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            setupEventListeners() {
+                document.getElementById('exportBtn').addEventListener('click', () => {
+                    this.exportToCSV();
+                });
+            }
+
+            exportToCSV() {
+                const csvContent = [
+                    ['Email', 'Source', 'Date', 'Timestamp'],
+                    ...this.emails.map(email => [
+                        email.email,
+                        email.source,
+                        email.date,
+                        email.timestamp
+                    ])
+                ].map(row => row.join(',')).join('\n');
+
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `codesentry-emails-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            }
+        }
+
+        // Initialize monitor
+        document.addEventListener('DOMContentLoaded', () => {
+            new EmailMonitor();
+        });
+    </script>
+</body>
+</html>

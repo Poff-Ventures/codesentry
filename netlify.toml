@@ -5,9 +5,42 @@
 [build.environment]
   NODE_VERSION = "20.6.0"
 
+# Redirect rules for single page application
+[[redirects]]
+  from = "/success"
+  to = "/success.html"
+  status = 200
+
+[[redirects]]
+  from = "/landing"
+  to = "/landing.html"
+  status = 200
+
+[[redirects]]
+  from = "/pricing"
+  to = "/pricing.html"
+  status = 200
+
+[[redirects]]
+  from = "/feedback"
+  to = "/feedback.html"
+  status = 200
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/dashboard.html"
+  status = 200
+
+# Default page redirect
+[[redirects]]
+  from = "/"
+  to = "/landing.html"
+  status = 200
+
+# Catch-all redirect for 404s
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/landing.html"
   status = 404
 
 [[headers]]
